@@ -1,0 +1,13 @@
+{
+  "editor.rulers": [100],
+  "workbench.colorCustomizations": {
+    "editorRuler.foreground": "#00ffff"
+  },
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.closeOnFileDelete": true,
+  "explorer.compactFolders": false
+}

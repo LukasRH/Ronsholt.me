@@ -3,7 +3,6 @@
   "cli": {
     "defaultCollection": "@nrwl/angular"
   },
-  "defaultProject": "portfolio",
   "schematics": {
     "@nrwl/angular": {
       "application": {
@@ -20,12 +19,14 @@
       "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "e2eTestRunner": "cypress",
+      "strict": true
     },
     "@nrwl/angular:library": {
       "style": "scss",
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "strict": true
     },
     "@nrwl/angular:component": {
       "style": "scss"
@@ -145,6 +146,1293 @@
           }
         }
       }
+    },
+    "admin": {
+      "projectType": "application",
+      "root": "apps/admin",
+      "sourceRoot": "apps/admin/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/admin",
+            "index": "apps/admin/src/index.html",
+            "main": "apps/admin/src/main.ts",
+            "polyfills": "apps/admin/src/polyfills.ts",
+            "tsConfig": "apps/admin/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
+            "styles": ["apps/admin/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/admin/src/environments/environment.ts",
+                  "with": "apps/admin/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "admin:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "admin:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "admin:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/admin/src/**/*.ts",
+              "apps/admin/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/admin"],
+          "options": {
+            "jestConfig": "apps/admin/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-e2e": {
+      "root": "apps/admin-e2e",
+      "sourceRoot": "apps/admin-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/admin-e2e/cypress.json",
+            "tsConfig": "apps/admin-e2e/tsconfig.e2e.json",
+            "devServerTarget": "admin:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "admin:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/admin-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "portfolio-data-access": {
+      "projectType": "library",
+      "root": "libs/portfolio/data-access",
+      "sourceRoot": "libs/portfolio/data-access/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/data-access/src/**/*.ts",
+              "libs/portfolio/data-access/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/data-access"],
+          "options": {
+            "jestConfig": "libs/portfolio/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-extensions": {
+      "projectType": "library",
+      "root": "libs/portfolio/extensions",
+      "sourceRoot": "libs/portfolio/extensions/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/extensions/src/**/*.ts",
+              "libs/portfolio/extensions/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/extensions"],
+          "options": {
+            "jestConfig": "libs/portfolio/extensions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-animations": {
+      "projectType": "library",
+      "root": "libs/portfolio/animations",
+      "sourceRoot": "libs/portfolio/animations/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/animations/src/**/*.ts",
+              "libs/portfolio/animations/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/animations"],
+          "options": {
+            "jestConfig": "libs/portfolio/animations/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-guards": {
+      "projectType": "library",
+      "root": "libs/portfolio/guards",
+      "sourceRoot": "libs/portfolio/guards/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/guards/src/**/*.ts",
+              "libs/portfolio/guards/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/guards"],
+          "options": {
+            "jestConfig": "libs/portfolio/guards/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-app-config": {
+      "projectType": "library",
+      "root": "libs/portfolio/app-config",
+      "sourceRoot": "libs/portfolio/app-config/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/app-config/src/**/*.ts",
+              "libs/portfolio/app-config/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/app-config"],
+          "options": {
+            "jestConfig": "libs/portfolio/app-config/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-i18n": {
+      "projectType": "library",
+      "root": "libs/portfolio/i18n",
+      "sourceRoot": "libs/portfolio/i18n/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/i18n/src/**/*.ts",
+              "libs/portfolio/i18n/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/i18n"],
+          "options": {
+            "jestConfig": "libs/portfolio/i18n/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-services": {
+      "projectType": "library",
+      "root": "libs/portfolio/services",
+      "sourceRoot": "libs/portfolio/services/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/services/src/**/*.ts",
+              "libs/portfolio/services/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/services"],
+          "options": {
+            "jestConfig": "libs/portfolio/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-intercepters": {
+      "projectType": "library",
+      "root": "libs/portfolio/intercepters",
+      "sourceRoot": "libs/portfolio/intercepters/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/intercepters/src/**/*.ts",
+              "libs/portfolio/intercepters/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/intercepters"],
+          "options": {
+            "jestConfig": "libs/portfolio/intercepters/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-directives": {
+      "projectType": "library",
+      "root": "libs/portfolio/directives",
+      "sourceRoot": "libs/portfolio/directives/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/directives/src/**/*.ts",
+              "libs/portfolio/directives/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/directives"],
+          "options": {
+            "jestConfig": "libs/portfolio/directives/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-ui": {
+      "projectType": "library",
+      "root": "libs/portfolio/ui",
+      "sourceRoot": "libs/portfolio/ui/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/ui/src/**/*.ts",
+              "libs/portfolio/ui/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/ui"],
+          "options": {
+            "jestConfig": "libs/portfolio/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-components": {
+      "projectType": "library",
+      "root": "libs/portfolio/components",
+      "sourceRoot": "libs/portfolio/components/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/components/src/**/*.ts",
+              "libs/portfolio/components/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/components"],
+          "options": {
+            "jestConfig": "libs/portfolio/components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-layouts": {
+      "projectType": "library",
+      "root": "libs/portfolio/layouts",
+      "sourceRoot": "libs/portfolio/layouts/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/layouts/src/**/*.ts",
+              "libs/portfolio/layouts/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/layouts"],
+          "options": {
+            "jestConfig": "libs/portfolio/layouts/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-pipes": {
+      "projectType": "library",
+      "root": "libs/portfolio/pipes",
+      "sourceRoot": "libs/portfolio/pipes/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/pipes/src/**/*.ts",
+              "libs/portfolio/pipes/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/pipes"],
+          "options": {
+            "jestConfig": "libs/portfolio/pipes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-utils": {
+      "projectType": "library",
+      "root": "libs/portfolio/utils",
+      "sourceRoot": "libs/portfolio/utils/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/utils/src/**/*.ts",
+              "libs/portfolio/utils/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/utils"],
+          "options": {
+            "jestConfig": "libs/portfolio/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-data": {
+      "projectType": "library",
+      "root": "libs/portfolio/data",
+      "sourceRoot": "libs/portfolio/data/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/data/src/**/*.ts",
+              "libs/portfolio/data/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/data"],
+          "options": {
+            "jestConfig": "libs/portfolio/data/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "portfolio-pages": {
+      "projectType": "library",
+      "root": "libs/portfolio/pages",
+      "sourceRoot": "libs/portfolio/pages/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/portfolio/pages/src/**/*.ts",
+              "libs/portfolio/pages/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/portfolio/pages"],
+          "options": {
+            "jestConfig": "libs/portfolio/pages/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-data-access": {
+      "projectType": "library",
+      "root": "libs/admin/data-access",
+      "sourceRoot": "libs/admin/data-access/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/data-access/src/**/*.ts",
+              "libs/admin/data-access/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/data-access"],
+          "options": {
+            "jestConfig": "libs/admin/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-extensions": {
+      "projectType": "library",
+      "root": "libs/admin/extensions",
+      "sourceRoot": "libs/admin/extensions/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/extensions/src/**/*.ts",
+              "libs/admin/extensions/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/extensions"],
+          "options": {
+            "jestConfig": "libs/admin/extensions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-animations": {
+      "projectType": "library",
+      "root": "libs/admin/animations",
+      "sourceRoot": "libs/admin/animations/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/animations/src/**/*.ts",
+              "libs/admin/animations/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/animations"],
+          "options": {
+            "jestConfig": "libs/admin/animations/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-guards": {
+      "projectType": "library",
+      "root": "libs/admin/guards",
+      "sourceRoot": "libs/admin/guards/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/guards/src/**/*.ts",
+              "libs/admin/guards/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/guards"],
+          "options": {
+            "jestConfig": "libs/admin/guards/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-app-config": {
+      "projectType": "library",
+      "root": "libs/admin/app-config",
+      "sourceRoot": "libs/admin/app-config/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/app-config/src/**/*.ts",
+              "libs/admin/app-config/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/app-config"],
+          "options": {
+            "jestConfig": "libs/admin/app-config/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-i18n": {
+      "projectType": "library",
+      "root": "libs/admin/i18n",
+      "sourceRoot": "libs/admin/i18n/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/i18n/src/**/*.ts",
+              "libs/admin/i18n/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/i18n"],
+          "options": {
+            "jestConfig": "libs/admin/i18n/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-services": {
+      "projectType": "library",
+      "root": "libs/admin/services",
+      "sourceRoot": "libs/admin/services/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/services/src/**/*.ts",
+              "libs/admin/services/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/services"],
+          "options": {
+            "jestConfig": "libs/admin/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-intercepters": {
+      "projectType": "library",
+      "root": "libs/admin/intercepters",
+      "sourceRoot": "libs/admin/intercepters/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/intercepters/src/**/*.ts",
+              "libs/admin/intercepters/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/intercepters"],
+          "options": {
+            "jestConfig": "libs/admin/intercepters/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-directives": {
+      "projectType": "library",
+      "root": "libs/admin/directives",
+      "sourceRoot": "libs/admin/directives/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/directives/src/**/*.ts",
+              "libs/admin/directives/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/directives"],
+          "options": {
+            "jestConfig": "libs/admin/directives/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-ui": {
+      "projectType": "library",
+      "root": "libs/admin/ui",
+      "sourceRoot": "libs/admin/ui/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/ui/src/**/*.ts",
+              "libs/admin/ui/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/ui"],
+          "options": {
+            "jestConfig": "libs/admin/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-components": {
+      "projectType": "library",
+      "root": "libs/admin/components",
+      "sourceRoot": "libs/admin/components/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/components/src/**/*.ts",
+              "libs/admin/components/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/components"],
+          "options": {
+            "jestConfig": "libs/admin/components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-layouts": {
+      "projectType": "library",
+      "root": "libs/admin/layouts",
+      "sourceRoot": "libs/admin/layouts/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/layouts/src/**/*.ts",
+              "libs/admin/layouts/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/layouts"],
+          "options": {
+            "jestConfig": "libs/admin/layouts/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-pipes": {
+      "projectType": "library",
+      "root": "libs/admin/pipes",
+      "sourceRoot": "libs/admin/pipes/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/pipes/src/**/*.ts",
+              "libs/admin/pipes/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/pipes"],
+          "options": {
+            "jestConfig": "libs/admin/pipes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-utils": {
+      "projectType": "library",
+      "root": "libs/admin/utils",
+      "sourceRoot": "libs/admin/utils/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/utils/src/**/*.ts",
+              "libs/admin/utils/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/utils"],
+          "options": {
+            "jestConfig": "libs/admin/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-data": {
+      "projectType": "library",
+      "root": "libs/admin/data",
+      "sourceRoot": "libs/admin/data/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/data/src/**/*.ts",
+              "libs/admin/data/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/data"],
+          "options": {
+            "jestConfig": "libs/admin/data/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-pages": {
+      "projectType": "library",
+      "root": "libs/admin/pages",
+      "sourceRoot": "libs/admin/pages/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/admin/pages/src/**/*.ts",
+              "libs/admin/pages/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/admin/pages"],
+          "options": {
+            "jestConfig": "libs/admin/pages/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-data-access": {
+      "projectType": "library",
+      "root": "libs/web/data-access",
+      "sourceRoot": "libs/web/data-access/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/data-access/src/**/*.ts",
+              "libs/web/data-access/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/data-access"],
+          "options": {
+            "jestConfig": "libs/web/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-extensions": {
+      "projectType": "library",
+      "root": "libs/web/extensions",
+      "sourceRoot": "libs/web/extensions/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/extensions/src/**/*.ts",
+              "libs/web/extensions/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/extensions"],
+          "options": {
+            "jestConfig": "libs/web/extensions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-animations": {
+      "projectType": "library",
+      "root": "libs/web/animations",
+      "sourceRoot": "libs/web/animations/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/animations/src/**/*.ts",
+              "libs/web/animations/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/animations"],
+          "options": {
+            "jestConfig": "libs/web/animations/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-guards": {
+      "projectType": "library",
+      "root": "libs/web/guards",
+      "sourceRoot": "libs/web/guards/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/guards/src/**/*.ts",
+              "libs/web/guards/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/guards"],
+          "options": {
+            "jestConfig": "libs/web/guards/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-app-config": {
+      "projectType": "library",
+      "root": "libs/web/app-config",
+      "sourceRoot": "libs/web/app-config/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/app-config/src/**/*.ts",
+              "libs/web/app-config/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/app-config"],
+          "options": {
+            "jestConfig": "libs/web/app-config/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-i18n": {
+      "projectType": "library",
+      "root": "libs/web/i18n",
+      "sourceRoot": "libs/web/i18n/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/i18n/src/**/*.ts",
+              "libs/web/i18n/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/i18n"],
+          "options": {
+            "jestConfig": "libs/web/i18n/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-services": {
+      "projectType": "library",
+      "root": "libs/web/services",
+      "sourceRoot": "libs/web/services/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/services/src/**/*.ts",
+              "libs/web/services/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/services"],
+          "options": {
+            "jestConfig": "libs/web/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-intercepters": {
+      "projectType": "library",
+      "root": "libs/web/intercepters",
+      "sourceRoot": "libs/web/intercepters/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/intercepters/src/**/*.ts",
+              "libs/web/intercepters/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/intercepters"],
+          "options": {
+            "jestConfig": "libs/web/intercepters/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-directives": {
+      "projectType": "library",
+      "root": "libs/web/directives",
+      "sourceRoot": "libs/web/directives/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/directives/src/**/*.ts",
+              "libs/web/directives/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/directives"],
+          "options": {
+            "jestConfig": "libs/web/directives/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-ui": {
+      "projectType": "library",
+      "root": "libs/web/ui",
+      "sourceRoot": "libs/web/ui/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/ui/src/**/*.ts",
+              "libs/web/ui/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/ui"],
+          "options": {
+            "jestConfig": "libs/web/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-components": {
+      "projectType": "library",
+      "root": "libs/web/components",
+      "sourceRoot": "libs/web/components/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/components/src/**/*.ts",
+              "libs/web/components/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/components"],
+          "options": {
+            "jestConfig": "libs/web/components/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-layouts": {
+      "projectType": "library",
+      "root": "libs/web/layouts",
+      "sourceRoot": "libs/web/layouts/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/layouts/src/**/*.ts",
+              "libs/web/layouts/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/layouts"],
+          "options": {
+            "jestConfig": "libs/web/layouts/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-pipes": {
+      "projectType": "library",
+      "root": "libs/web/pipes",
+      "sourceRoot": "libs/web/pipes/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/pipes/src/**/*.ts",
+              "libs/web/pipes/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/pipes"],
+          "options": {
+            "jestConfig": "libs/web/pipes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-utils": {
+      "projectType": "library",
+      "root": "libs/web/utils",
+      "sourceRoot": "libs/web/utils/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/utils/src/**/*.ts",
+              "libs/web/utils/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/utils"],
+          "options": {
+            "jestConfig": "libs/web/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-assets": {
+      "projectType": "library",
+      "root": "libs/web/assets",
+      "sourceRoot": "libs/web/assets/src",
+      "prefix": "ronsholt.me",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web/assets/src/**/*.ts",
+              "libs/web/assets/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web/assets"],
+          "options": {
+            "jestConfig": "libs/web/assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
-  }
+  },
+  "defaultProject": "portfolio"
 }

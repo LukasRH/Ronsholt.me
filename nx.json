@@ -1,34 +1,79 @@
 {
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "npmScope": "ronsholt.me",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "ZTljNTBlNDEtMzE2Ny00ZWEzLTgzMzYtMzJiNThjYjgxODJifHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   },
   "projects": {
-    "portfolio": {
-      "tags": []
-    },
-    "portfolio-e2e": {
-      "tags": [],
+    "portfolio": { "tags": ["app", "portfolio"] },
+    "portfolio-e2e": { "tags": [], "implicitDependencies": ["portfolio"] },
+    "admin": {
+      "tags": ["app", "portfolio", "admin"],
       "implicitDependencies": ["portfolio"]
-    }
+    },
+    "admin-e2e": { "tags": [], "implicitDependencies": ["admin"] },
+    "portfolio-data-access": { "tags": ["portfolio data-access lib"] },
+    "portfolio-extensions": { "tags": ["portfolio extensions lib"] },
+    "portfolio-animations": { "tags": ["portfolio animations lib"] },
+    "portfolio-guards": { "tags": ["portfolio guards lib"] },
+    "portfolio-app-config": { "tags": ["portfolio app-config lib"] },
+    "portfolio-i18n": { "tags": ["portfolio i18n lib"] },
+    "portfolio-services": { "tags": ["portfolio services lib"] },
+    "portfolio-intercepters": { "tags": ["portfolio intercepters lib"] },
+    "portfolio-directives": { "tags": ["portfolio directives lib"] },
+    "portfolio-ui": { "tags": ["portfolio ui lib"] },
+    "portfolio-components": { "tags": ["portfolio components lib"] },
+    "portfolio-layouts": { "tags": ["portfolio layouts lib"] },
+    "portfolio-pipes": { "tags": ["portfolio pipes lib"] },
+    "portfolio-utils": { "tags": ["portfolio utils lib"] },
+    "portfolio-data": { "tags": ["portfolio data lib"] },
+    "portfolio-pages": { "tags": ["portfolio pages lib pages"] },
+    "admin-data-access": { "tags": ["admin data-access lib"] },
+    "admin-extensions": { "tags": ["admin extensions lib"] },
+    "admin-animations": { "tags": ["admin animations lib"] },
+    "admin-guards": { "tags": ["admin guards lib"] },
+    "admin-app-config": { "tags": ["admin app-config lib"] },
+    "admin-i18n": { "tags": ["admin i18n lib"] },
+    "admin-services": { "tags": ["admin services lib"] },
+    "admin-intercepters": { "tags": ["admin intercepters lib"] },
+    "admin-directives": { "tags": ["admin directives lib"] },
+    "admin-ui": { "tags": ["admin ui lib"] },
+    "admin-components": { "tags": ["admin components lib"] },
+    "admin-layouts": { "tags": ["admin layouts lib"] },
+    "admin-pipes": { "tags": ["admin pipes lib"] },
+    "admin-utils": { "tags": ["admin utils lib"] },
+    "admin-data": { "tags": ["admin data lib"] },
+    "admin-pages": { "tags": ["admin pages lib pages"] },
+    "web-data-access": { "tags": ["web data-access lib"] },
+    "web-extensions": { "tags": ["web extensions lib"] },
+    "web-animations": { "tags": ["web animations lib"] },
+    "web-guards": { "tags": ["web guards lib"] },
+    "web-app-config": { "tags": ["web app-config lib"] },
+    "web-i18n": { "tags": ["web i18n lib"] },
+    "web-services": { "tags": ["web services lib"] },
+    "web-intercepters": { "tags": ["web intercepters lib"] },
+    "web-directives": { "tags": ["web directives lib"] },
+    "web-ui": { "tags": ["web ui lib"] },
+    "web-components": { "tags": ["web components lib"] },
+    "web-layouts": { "tags": ["web layouts lib"] },
+    "web-pipes": { "tags": ["web pipes lib"] },
+    "web-utils": { "tags": ["web utils lib"] },
+    "web-assets": { "tags": ["web assets lib"] }
   }
 }
